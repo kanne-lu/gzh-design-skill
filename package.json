@@ -12,6 +12,8 @@
     "desktop:build": "tauri build"
   },
   "dependencies": {
+    "@tauri-apps/api": "^2.11.1",
+    "@tauri-apps/plugin-opener": "^2.5.4",
     "lucide-react": "^0.468.0",
     "mammoth": "1.12.0",
     "pdfjs-dist": "6.1.200",
@@ -20,11 +22,11 @@
     "turndown": "7.2.4"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^2.11.4",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@types/turndown": "5.0.6",
     "@vitejs/plugin-react": "^4.3.4",
-    "@tauri-apps/cli": "^2.11.4",
     "typescript": "^5.7.3",
     "vite": "^6.0.7",
     "vitest": "^4.1.10"

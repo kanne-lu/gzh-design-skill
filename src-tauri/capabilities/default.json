@@ -3,5 +3,5 @@
   "identifier": "default",
   "description": "Allows the main window to use Tauri core APIs.",
   "windows": ["main"],
-  "permissions": ["core:default", "opener:default"]
+  "permissions": ["core:default", "opener:allow-default-urls"]
 }

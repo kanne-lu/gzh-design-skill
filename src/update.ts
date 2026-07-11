@@ -14,12 +14,15 @@ export interface UpdateState {
 }
 
 function versionParts(version: string) {
-  return version.replace(/^v/i, '').split('.').map((part) => Number.parseInt(part, 10) || 0)
+  if (!/^v?\d+(?:\.\d+)*$/.test(version)) return undefined
+
+  return version.replace(/^v/, '').split('.').map(Number)
 }
 
 function isNewerVersion(latestVersion: string, currentVersion: string) {
   const latestParts = versionParts(latestVersion)
   const currentParts = versionParts(currentVersion)
+  if (!latestParts || !currentParts) return false
   const length = Math.max(latestParts.length, currentParts.length)
 
   for (let index = 0; index < length; index += 1) {

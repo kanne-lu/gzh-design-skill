@@ -4,8 +4,11 @@ import test from 'node:test'
 
 test('Tauri builds the Vite frontend as an NSIS installer', () => {
   const config = JSON.parse(readFileSync(new URL('../src-tauri/tauri.conf.json', import.meta.url)))
+  const packageJson = JSON.parse(readFileSync(new URL('../package.json', import.meta.url)))
 
   assert.equal(config.productName, '墨排 · gzh-design')
+  assert.equal(config.version, '0.0.1')
+  assert.equal(packageJson.version, config.version)
   assert.equal(config.build.beforeDevCommand, 'npm run dev')
   assert.equal(config.build.devUrl, 'http://localhost:5173')
   assert.equal(config.build.beforeBuildCommand, 'pnpm exec vite build')

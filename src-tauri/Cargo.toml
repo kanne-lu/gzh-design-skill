@@ -1,6 +1,6 @@
 [package]
 name = "mopai-gzh-editor"
-version = "0.0.2"
+version = "0.0.3"
 description = "Markdown visual layout editor"
 authors = ["Mopai"]
 edition = "2021"

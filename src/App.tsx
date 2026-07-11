@@ -8,6 +8,7 @@ import { EditorPanel } from './components/EditorPanel'
 import { PreviewPanel } from './components/PreviewPanel'
 import { InspectorPanel } from './components/InspectorPanel'
 import { UpdateDialog } from './components/UpdateDialog'
+import { AiOptimizeDialog } from './components/AiOptimizeDialog'
 import type { EditorSettings } from './types'
 
 type MobilePanel = 'edit' | 'preview' | 'style'
@@ -82,7 +83,7 @@ function App() {
 
   return (
     <div className="app-shell">
-      <Header title={article.title} saved={saved} copied={copied} onCopy={handleCopy} onExport={handleExport} onCheckUpdate={() => setUpdateDialogOpen(true)} />
+      <Header title={article.title} saved={saved} copied={copied} onCopy={handleCopy} onExport={handleExport} onCheckUpdate={() => setUpdateDialogOpen(true)} aiAction={<AiOptimizeDialog markdown={markdown} themeContext={`${theme.name}｜${theme.recipes[settings.articleType].name}｜核心组件：${theme.recipes[settings.articleType].core.join('、')}｜点缀组件：${theme.recipes[settings.articleType].accents.join('、')}`} onApply={setMarkdown} />} />
       <nav className="mobile-panel-nav" aria-label="工作区切换">
         <button className={mobilePanel === 'edit' ? 'is-active' : ''} onClick={() => setMobilePanel('edit')}><FileText size={16} />原稿</button>
         <button className={mobilePanel === 'preview' ? 'is-active' : ''} onClick={() => setMobilePanel('preview')}><Smartphone size={16} />成品</button>

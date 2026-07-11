@@ -1,4 +1,4 @@
-import { Check, Clipboard, Download, Leaf } from 'lucide-react'
+import { Check, Clipboard, Download, Leaf, RefreshCw } from 'lucide-react'
 
 interface HeaderProps {
   title: string
@@ -6,20 +6,22 @@ interface HeaderProps {
   copied: boolean
   onCopy: () => void
   onExport: () => void
+  onCheckUpdate: () => void
 }
 
-export function Header({ title, saved, copied, onCopy, onExport }: HeaderProps) {
+export function Header({ title, saved, copied, onCopy, onExport, onCheckUpdate }: HeaderProps) {
   return (
     <header className="app-header">
-      <div className="brand" aria-label="墨排">
+      <div className="brand" aria-label="Wenlan · 公众号排版">
         <span className="brand-mark"><Leaf size={18} strokeWidth={1.8} /></span>
-        <span>墨排</span>
+        <span>Wenlan</span>
       </div>
       <div className="document-meta">
         <strong>{title || '未命名文章'}</strong>
         <span><Check size={13} />{saved ? '已自动保存' : '正在保存…'}</span>
       </div>
       <div className="header-actions">
+        <button className="update-button" type="button" onClick={onCheckUpdate}><RefreshCw size={15} /><span>检查更新</span></button>
         <button className="export-button" onClick={onExport}><Download size={16} /><span>导出 HTML</span></button>
         <button className={`copy-button ${copied ? 'is-copied' : ''}`} onClick={onCopy}>
           {copied ? <Check size={17} /> : <Clipboard size={17} />}

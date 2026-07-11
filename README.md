@@ -1,4 +1,4 @@
-# 墨排 · gzh-design 可视化排版工具
+# Wenlan · 公众号排版
 
 把 Markdown 按 [`isjiamu/gzh-design-skill`](https://github.com/isjiamu/gzh-design-skill) 的主题组件配置，实时转换为可直接复制到微信公众号编辑器的内联 HTML。
 

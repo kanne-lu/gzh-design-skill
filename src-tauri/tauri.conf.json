@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "墨排 · gzh-design",
+  "productName": "Wenlan · 公众号排版",
   "version": "0.0.1",
   "identifier": "com.mopai.gzhdesign",
   "build": {
@@ -13,7 +13,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "墨排 · gzh-design",
+        "title": "Wenlan · 公众号排版",
         "width": 1440,
         "height": 900,
         "minWidth": 1024,

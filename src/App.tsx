@@ -7,6 +7,7 @@ import { Header } from './components/Header'
 import { EditorPanel } from './components/EditorPanel'
 import { PreviewPanel } from './components/PreviewPanel'
 import { InspectorPanel } from './components/InspectorPanel'
+import { UpdateDialog } from './components/UpdateDialog'
 import type { EditorSettings } from './types'
 
 type MobilePanel = 'edit' | 'preview' | 'style'
@@ -30,6 +31,7 @@ function App() {
   const [zoom, setZoom] = useState(90)
   const [saved, setSaved] = useState(true)
   const [copied, setCopied] = useState(false)
+  const [updateDialogOpen, setUpdateDialogOpen] = useState(false)
 
   const article = useMemo(() => parseMarkdown(markdown), [markdown])
   const theme = useMemo(() => themes.find((item) => item.id === settings.themeId) ?? themes[0], [settings.themeId])
@@ -80,7 +82,7 @@ function App() {
 
   return (
     <div className="app-shell">
-      <Header title={article.title} saved={saved} copied={copied} onCopy={handleCopy} onExport={handleExport} />
+      <Header title={article.title} saved={saved} copied={copied} onCopy={handleCopy} onExport={handleExport} onCheckUpdate={() => setUpdateDialogOpen(true)} />
       <nav className="mobile-panel-nav" aria-label="工作区切换">
         <button className={mobilePanel === 'edit' ? 'is-active' : ''} onClick={() => setMobilePanel('edit')}><FileText size={16} />原稿</button>
         <button className={mobilePanel === 'preview' ? 'is-active' : ''} onClick={() => setMobilePanel('preview')}><Smartphone size={16} />成品</button>
@@ -103,6 +105,7 @@ function App() {
           © 2026 甲木 × 摸鱼小李
         </span>
       </footer>
+      <UpdateDialog open={updateDialogOpen} onClose={() => setUpdateDialogOpen(false)} />
     </div>
   )
 }

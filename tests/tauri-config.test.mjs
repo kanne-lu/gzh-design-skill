@@ -7,7 +7,7 @@ test('Tauri builds the Vite frontend as an NSIS installer', () => {
   const packageJson = JSON.parse(readFileSync(new URL('../package.json', import.meta.url)))
 
   assert.equal(config.productName, 'Wenlan · 公众号排版')
-  assert.equal(config.version, '0.0.3')
+  assert.equal(config.version, '0.0.4')
   assert.equal(packageJson.version, config.version)
   assert.equal(config.build.beforeDevCommand, 'npm run dev')
   assert.equal(config.build.devUrl, 'http://localhost:5173')

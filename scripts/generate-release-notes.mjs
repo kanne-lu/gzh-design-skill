@@ -41,7 +41,7 @@ function previousTag() {
   const tags = git('tag', '--merged', 'HEAD', '--sort=-version:refname')
     .split('\n')
     .filter((tag) => /^v/.test(tag))
-  const currentTag = process.env.GITHUB_REF_NAME ?? tags.find((tag) => git('rev-parse', tag) === git('rev-parse', 'HEAD'))
+  const currentTag = process.env.GITHUB_REF_NAME ?? tags.find((tag) => git('rev-parse', `${tag}^{}`) === git('rev-parse', 'HEAD'))
 
   return tags.find((tag) => tag !== currentTag)
 }

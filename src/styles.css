@@ -262,6 +262,22 @@ input[type="range"] { width: 100%; height: 3px; margin: 0; accent-color: var(--a
 
 .config-source { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding: 8px 10px; color: #7d8981; background: #f7f9f7; border: 1px solid #e4ebe5; border-radius: 6px; font-size: 9px; }
 .config-source code { color: #486052; font-family: Consolas, monospace; }
+.moyu-color-section { padding-bottom: 18px; }
+.moyu-color-heading { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 11px; }
+.moyu-color-heading h3 { margin: 0; }
+.moyu-color-heading span { color: #98a19b; font-size: 9px; }
+.moyu-color-family { position: relative; display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 8px; min-height: 34px; margin-bottom: 10px; color: #657168; font-size: 10px; }
+.moyu-color-family select { width: 100%; height: 32px; padding: 0 28px 0 9px; color: #344139; background: #fff; border: 1px solid #dce6de; border-radius: 6px; appearance: none; font-size: 10px; cursor: pointer; }
+.moyu-color-family svg { position: absolute; right: 9px; color: #718078; pointer-events: none; }
+.moyu-color-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.moyu-color-swatch { display: grid; position: relative; place-items: center; min-height: 37px; padding: 4px 2px; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, .22); background: var(--moyu-color); border: 1px solid transparent; border-radius: 5px; cursor: pointer; }
+.moyu-color-swatch:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(45, 74, 92, .18); }
+.moyu-color-swatch.is-selected { border-color: #1f2937; box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--moyu-color); }
+.moyu-color-swatch svg { position: absolute; top: 3px; right: 3px; filter: drop-shadow(0 1px 1px rgba(0,0,0,.3)); }
+.moyu-color-swatch span { font-size: 9px; font-weight: 700; letter-spacing: .02em; }
+.moyu-custom-color { display: grid; grid-template-columns: 26px 1fr auto; gap: 8px; align-items: center; margin-top: 10px; min-height: 34px; color: #657168; font-size: 10px; }
+.moyu-custom-color input { width: 26px; height: 26px; padding: 2px; background: #fff; border: 1px solid #dbe5dd; border-radius: 5px; cursor: pointer; }
+.moyu-custom-color code { color: #617067; font-family: Consolas, monospace; font-size: 9px; }
 .select-field { position: relative; display: block; }
 .select-field select { width: 100%; height: 38px; padding: 0 32px 0 11px; color: #344139; background: #fff; border: 1px solid #dce6de; border-radius: 7px; appearance: none; font-size: 12px; cursor: pointer; }
 .select-field svg { position: absolute; top: 12px; right: 10px; color: #718078; pointer-events: none; }

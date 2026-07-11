@@ -16,6 +16,8 @@ export type ArticleType =
   | 'essay'
   | 'case'
 
+export type MoyuColorFamily = 'moyu' | 'blue' | 'yellow' | 'cyan' | 'green'
+
 export type ParsedBlock =
   | { type: 'paragraph'; text: string }
   | { type: 'subheading'; text: string }
@@ -48,6 +50,8 @@ export interface ParsedArticle {
 
 export interface EditorSettings {
   themeId: ThemeId
+  moyuAccent?: string
+  moyuColorFamily?: MoyuColorFamily
   articleType: ArticleType
   autoNumber: boolean
   keywordUnderline: boolean
@@ -72,12 +76,14 @@ export interface ThemeDefinition {
   sourceFile: string
   componentCount: string
   accent: string
+  accentGradient?: string
   accentSoft: string
   paper: string
   ink: string
   muted: string
   border: string
   highlight: string
+  highlightFade?: string
   recipes: Record<ArticleType, RecipeDefinition>
   componentGroups?: ThemeComponentGroup[]
   componentTriggers?: Record<string, string>

@@ -14,6 +14,20 @@ import type { EditorSettings } from './types'
 type MobilePanel = 'edit' | 'preview' | 'style'
 const STORAGE_KEY = 'mopai-gzh-skill-editor-v2'
 
+function mixWithWhite(hex: string, amount: number) {
+  const value = hex.replace('#', '')
+  if (!/^[0-9a-fA-F]{6}$/.test(value)) return hex
+  const channels = [0, 2, 4].map((offset) => Number.parseInt(value.slice(offset, offset + 2), 16))
+  return `#${channels.map((channel) => Math.round(channel + (255 - channel) * amount).toString(16).padStart(2, '0')).join('')}`
+}
+
+function hexToTransparent(hex: string) {
+  const value = hex.replace('#', '')
+  if (!/^[0-9a-fA-F]{6}$/.test(value)) return 'rgba(255,255,255,0)'
+  const channels = [0, 2, 4].map((offset) => Number.parseInt(value.slice(offset, offset + 2), 16))
+  return `rgba(${channels.join(',')},0)`
+}
+
 function loadInitialState(): { markdown: string; settings: EditorSettings } {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
@@ -35,7 +49,19 @@ function App() {
   const [updateDialogOpen, setUpdateDialogOpen] = useState(false)
 
   const article = useMemo(() => parseMarkdown(markdown), [markdown])
-  const theme = useMemo(() => themes.find((item) => item.id === settings.themeId) ?? themes[0], [settings.themeId])
+  const theme = useMemo(() => {
+    const selectedTheme = themes.find((item) => item.id === settings.themeId) ?? themes[0]
+    if (selectedTheme.id !== 'moyu-green' || !settings.moyuAccent || settings.moyuAccent.toUpperCase() === selectedTheme.accent) return selectedTheme
+    return {
+      ...selectedTheme,
+      accent: settings.moyuAccent,
+      accentGradient: mixWithWhite(settings.moyuAccent, 0.18),
+      accentSoft: mixWithWhite(settings.moyuAccent, 0.9),
+      border: mixWithWhite(settings.moyuAccent, 0.72),
+      highlight: mixWithWhite(settings.moyuAccent, 0.76),
+      highlightFade: hexToTransparent(settings.moyuAccent),
+    }
+  }, [settings.moyuAccent, settings.themeId])
   const html = useMemo(() => buildWechatHtml(article, settings, theme), [article, settings, theme])
   const validation = useMemo(() => validateWechatHtml(html), [html])
   const characterCount = useMemo(() => articleToPlainText(article).replace(/\s/g, '').length, [article])

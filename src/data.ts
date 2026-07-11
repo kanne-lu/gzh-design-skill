@@ -1,4 +1,4 @@
-import type { ArticleType, EditorSettings, RecipeDefinition, ThemeDefinition } from './types'
+import type { ArticleType, EditorSettings, MoyuColorFamily, RecipeDefinition, ThemeDefinition } from './types'
 
 const recipe = (name: string, core: string[], accents: string[]): RecipeDefinition => ({ name, core, accents })
 
@@ -157,7 +157,7 @@ export const themes: ThemeDefinition[] = [
     description: '绿色杂志风 · 教程与清单',
     sourceFile: 'theme-moyu-green.md',
     componentCount: '13 组 / 30+ 变体',
-    accent: '#059669', accentSoft: '#ecfdf5', paper: '#ffffff', ink: '#374151', muted: '#9ca3af', border: '#bbf7d0', highlight: '#fde68a',
+    accent: '#059669', accentGradient: '#10B981', accentSoft: '#ecfdf5', paper: '#ffffff', ink: '#374151', muted: '#9ca3af', border: '#bbf7d0', highlight: '#fde68a', highlightFade: 'rgba(253,230,138,0)',
     recipes: greenRecipes,
   },
   {
@@ -285,4 +285,28 @@ export const defaultSettings: EditorSettings = {
   autoNumber: true,
   keywordUnderline: true,
   includeToc: true,
+}
+
+export const moyuColorFamilies: Record<MoyuColorFamily, { name: string; presets: ReadonlyArray<{ name: string; color: string }> }> = {
+  moyu: { name: '原始摸鱼绿', presets: [{ name: '摸鱼绿', color: '#059669' }] },
+  blue: { name: '蓝色系', presets: [
+    ['远天蓝', '#D0DFE6'], ['井天蓝', '#C3D7DF'], ['云水蓝', '#BACCD9'], ['星蓝', '#93B5CF'], ['湖水蓝', '#B0D5DF'], ['晴山蓝', '#8FB2C9'], ['蝶翅蓝', '#4E7CA1'], ['青磁蓝', '#11659A'],
+    ['秋波蓝', '#8ABCD1'], ['晴蓝', '#5698C3'], ['海军蓝', '#346C9C'], ['二青', '#1E5DA2'], ['润石蓝', '#6BA9C9'], ['宝石蓝', '#2486B9'], ['海涛蓝', '#15559A'], ['青金石', '#2B2E77'],
+    ['羽扇豆蓝', '#619AC3'], ['天蓝', '#1677B3'], ['湛蓝', '#1E3B7A'], ['宝蓝', '#1F2B6F'], ['靛蓝', '#2874AF'], ['景泰蓝', '#2775B6'], ['品蓝', '#003D74'], ['湛青', '#080F40'],
+  ].map(([name, color]) => ({ name, color })) },
+  yellow: { name: '黄色系', presets: [
+    ['杏仁黄', '#F8E7A5'], ['茉莉黄', '#F8DF72'], ['菊蕾黄', '#F8D86A'], ['炒米', '#E7BB64'], ['油菜花黄', '#FDBA41'], ['柠檬黄', '#FCCD37'], ['藤黄', '#E9BA20'], ['后土', '#E1A34B'],
+    ['柚黄', '#D6BB38'], ['碧梧黄', '#F2CE2B'], ['姜黄', '#F1BD3F'], ['琥珀', '#D29836'], ['娇黄', '#DAA91F'], ['柑黄', '#E4CF39'], ['蜜蜡黄', '#E7B140'], ['桂黄', '#EDA01F'],
+    ['金黄', '#D3A117'], ['雌黄', '#EAC21D'], ['黄琉璃', '#E5A84B'], ['雄黄', '#F3993A'], ['香色', '#B68B33'], ['明黄', '#E3C800'], ['紫磨金', '#D9A541'], ['杏黄', '#C99600'],
+  ].map(([name, color]) => ({ name, color })) },
+  cyan: { name: '青色系', presets: [
+    ['粉青', '#C4DAD6'], ['蛋青', '#C3D9D6'], ['天青', '#C6D7DB'], ['卵色天', '#CBD8E1'], ['粉绿', '#BDCCBF'], ['海天蓝', '#C6E6E8'], ['清水蓝', '#93D5DC'], ['虾青', '#94A9B8'],
+    ['豆青', '#A1BFB0'], ['松石', '#75C1C4'], ['湛海蓝', '#51C4D3'], ['青青', '#63B8D0'], ['蟹壳青', '#8CB7A2'], ['闪蓝', '#7CABB1'], ['甸子蓝', '#10AEC2'], ['留青', '#5CB3CC'],
+    ['虾壳青', '#869D9D'], ['翠蓝', '#41888A'], ['胆矾蓝', '#0F95BD'], ['法蓝', '#30AECF'], ['晚波蓝', '#648E93'], ['蟹蟹蓝', '#3B81BC'], ['白青', '#4F93A5'], ['鱼师青', '#32788A'],
+  ].map(([name, color]) => ({ name, color })) },
+  green: { name: '绿色系', presets: [
+    ['新杨', '#E0EDB9'], ['嘉陵水绿', '#A0D5A2'], ['水绿', '#8DB799'], ['鹦哥绿', '#A5D1B5'], ['无心绿', '#BFD1B2'], ['梅子青', '#A9BD70'], ['麦绿', '#8EAF8C'], ['四绿', '#6BB392'],
+    ['绿沈', '#84BD6E'], ['苹果', '#A4C34F'], ['京绿', '#338F3E'], ['三绿', '#53976F'], ['艾绿', '#9DAA6C'], ['芥绿', '#8A7A40'], ['明绿', '#49864D'], ['曲绿', '#1C8D6C'],
+    ['豆绿', '#91AE84'], ['秋葵', '#6B8C32'], ['竹绿', '#357944'], ['孔雀绿', '#007D62'], ['葱绿', '#799A64'], ['槐色', '#507936'], ['松绿', '#3D6036'], ['砂绿', '#425539'],
+  ].map(([name, color]) => ({ name, color })) },
 }

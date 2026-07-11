@@ -1,6 +1,6 @@
 import { Check, ChevronDown, ExternalLink, Layers3, ShieldCheck } from 'lucide-react'
-import { articleTypes, themes } from '../data'
-import type { ArticleType, EditorSettings, HtmlValidation, ParsedArticle, ThemeId } from '../types'
+import { articleTypes, moyuColorFamilies, themes } from '../data'
+import type { ArticleType, EditorSettings, HtmlValidation, MoyuColorFamily, ParsedArticle, ThemeId } from '../types'
 import { countDetectedBlocks } from '../markdown'
 
 interface InspectorPanelProps {
@@ -22,6 +22,13 @@ export function InspectorPanel({ article, settings, validation, onChange }: Insp
   const tocAvailable = settings.themeId !== 'ticket' && settings.themeId !== 'olive'
   const componentGroups = theme.componentGroups ?? []
   const componentTotal = componentGroups.reduce((total, group) => total + group.items.length, 0)
+  const selectedColorFamily = settings.moyuColorFamily ?? (settings.moyuAccent ? 'blue' : 'moyu')
+  const colorFamily = moyuColorFamilies[selectedColorFamily]
+
+  const chooseColorFamily = (familyId: MoyuColorFamily) => {
+    const firstColor = moyuColorFamilies[familyId].presets[0].color
+    onChange({ ...settings, moyuColorFamily: familyId, moyuAccent: firstColor })
+  }
 
   return (
     <aside className="inspector-panel workspace-panel" aria-label="排版配置">
@@ -42,6 +49,41 @@ export function InspectorPanel({ article, settings, validation, onChange }: Insp
           </div>
           <div className="config-source"><code>{theme.sourceFile}</code><span>{theme.componentCount}</span></div>
         </section>
+
+        {settings.themeId === 'moyu-green' && (
+          <section className="setting-section moyu-color-section">
+            <div className="moyu-color-heading"><h3>整体配色</h3><span>仅影响摸鱼绿</span></div>
+            <label className="moyu-color-family">
+              <span>颜色大类</span>
+              <select value={selectedColorFamily} onChange={(event) => chooseColorFamily(event.target.value as MoyuColorFamily)}>
+                {(Object.keys(moyuColorFamilies) as MoyuColorFamily[]).map((familyId) => <option key={familyId} value={familyId}>{moyuColorFamilies[familyId].name}</option>)}
+              </select>
+              <ChevronDown size={14} />
+            </label>
+            <div className="moyu-color-grid" aria-label={`传统中国${colorFamily.name}配色`}>
+              {colorFamily.presets.map((preset) => (
+                <button
+                  key={preset.color}
+                  type="button"
+                  title={`${preset.name} ${preset.color}`}
+                  aria-label={`${preset.name} ${preset.color}`}
+                  aria-pressed={settings.moyuAccent?.toUpperCase() === preset.color}
+                  className={`moyu-color-swatch ${settings.moyuAccent?.toUpperCase() === preset.color ? 'is-selected' : ''}`}
+                  style={{ '--moyu-color': preset.color } as React.CSSProperties}
+                  onClick={() => update('moyuAccent', preset.color)}
+                >
+                  {settings.moyuAccent?.toUpperCase() === preset.color && <Check size={12} />}
+                  <span>{preset.name}</span>
+                </button>
+              ))}
+            </div>
+            <label className="moyu-custom-color">
+              <input type="color" value={settings.moyuAccent ?? theme.accent} onChange={(event) => update('moyuAccent', event.target.value.toUpperCase())} />
+              <span>自定义颜色</span>
+              <code>{settings.moyuAccent ?? theme.accent}</code>
+            </label>
+          </section>
+        )}
 
         <section className="setting-section">
           <h3>文章类型 → 组件配方</h3>
